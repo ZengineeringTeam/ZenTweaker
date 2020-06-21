@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "snownee.zentweaker.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "mixins.zentweaker.refmap.json",
+  "mixins": [
+    "MixinCactusBlock",
+    "MixinSeaPickleBlock"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
