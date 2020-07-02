@@ -29,9 +29,7 @@ public abstract class MixinSeaPickleBlock extends BushBlock implements IGrowable
     @Overwrite
     public void grow(ServerWorld p_225535_1_, Random p_225535_2_, BlockPos p_225535_3_, BlockState p_225535_4_) {
         if (!this.isInBadEnvironment(p_225535_4_) && p_225535_1_.getBlockState(p_225535_3_.down()).isIn(BlockTags.CORAL_BLOCKS)) {
-            int i = 5;
             int j = 1;
-            int k = 2;
             int l = 0;
             int i1 = p_225535_3_.getX() - 2;
             int j1 = 0;
