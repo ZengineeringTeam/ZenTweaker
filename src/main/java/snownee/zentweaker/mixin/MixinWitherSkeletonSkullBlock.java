@@ -99,6 +99,9 @@ public class MixinWitherSkeletonSkullBlock {
 
     @Inject(at = @At("HEAD"), method = "canSpawnMob", cancellable = true)
     private static void zentweaker_canSpawnMob(World p_196299_0_, BlockPos p_196299_1_, ItemStack p_196299_2_, CallbackInfoReturnable<Boolean> info) {
+        if (!ZenTweakerCommonConfig.peacefulNetherStar) {
+            return;
+        }
         if (p_196299_2_.getItem() == Items.WITHER_SKELETON_SKULL && p_196299_1_.getY() >= 2 && !p_196299_0_.isRemote) {
             info.setReturnValue(getOrCreateWitherBase().match(p_196299_0_, p_196299_1_) != null);
         } else {
@@ -110,7 +113,6 @@ public class MixinWitherSkeletonSkullBlock {
         if (witherPatternFull == null) {
             witherPatternFull = BlockPatternBuilder.start().aisle("^^^", "###", "~#~").where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND))).where('^', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(Blocks.WITHER_SKELETON_SKULL).or(BlockStateMatcher.forBlock(Blocks.WITHER_SKELETON_WALL_SKULL)))).where('~', CachedBlockInfo.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
         }
-
         return witherPatternFull;
     }
 
@@ -118,7 +120,6 @@ public class MixinWitherSkeletonSkullBlock {
         if (witherPatternBase == null) {
             witherPatternBase = BlockPatternBuilder.start().aisle("   ", "###", "~#~").where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND))).where('~', CachedBlockInfo.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
         }
-
         return witherPatternBase;
     }
 
