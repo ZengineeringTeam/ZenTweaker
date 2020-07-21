@@ -3,7 +3,9 @@ package snownee.zentweaker.mixin;
 import java.util.Random;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,6 +14,7 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ForgeHooks;
 import snownee.zentweaker.ZenTweakerCommonConfig;
 
 @Mixin(CactusBlock.class)
@@ -22,9 +25,9 @@ public abstract class MixinCactusBlock extends Block {
 
     private static final IntegerProperty AGE = BlockStateProperties.AGE_0_15;
 
-    @Override
-    @Overwrite
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+    @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
+    public void zentweaker_tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand, CallbackInfo info) {
+        info.cancel();
         if (!worldIn.isAreaLoaded(pos, 1))
             return; // Forge: prevent growing cactus from loading unloaded chunks with block update
         if (!state.isValidPosition(worldIn, pos)) {
@@ -46,7 +49,7 @@ public abstract class MixinCactusBlock extends Block {
                         } else {
                             worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(j + 1)), 4);
                         }
-                        net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+                        ForgeHooks.onCropsGrowPost(worldIn, pos, state);
                     }
                 }
             }

@@ -24,11 +24,14 @@ public final class ZenTweakerCommonConfig {
 
     public static int cactusGrowAge = 5;
     public static boolean nerfSeaPickle = true;
+    public static boolean peacefulNetherStar = true;
     public static final Set<EntityType<?>> NO_AI_ENTITIES = Sets.newIdentityHashSet();
 
     private static IntValue cactusGrowAgeVal;
     private static BooleanValue nerfSeaPickleVal;
+    private static BooleanValue peacefulNetherStarVal;
     private static ConfigValue<List<? extends String>> noAIEntitiesVal;
+    public static ConfigValue<List<? extends String>> blockResistanceVal;
 
     static {
         spec = new ForgeConfigSpec.Builder().configure(ZenTweakerCommonConfig::new).getRight();
@@ -37,12 +40,15 @@ public final class ZenTweakerCommonConfig {
     private ZenTweakerCommonConfig(ForgeConfigSpec.Builder builder) {
         cactusGrowAgeVal = builder.defineInRange("cactusGrowAge", cactusGrowAge, 0, 15);
         nerfSeaPickleVal = builder.define("nerfSeaPickle", nerfSeaPickle);
+        peacefulNetherStarVal = builder.define("peacefulNetherStar", peacefulNetherStar);
         noAIEntitiesVal = builder.defineList("noAIEntities", Collections::emptyList, Predicates.alwaysTrue());
+        blockResistanceVal = builder.defineList("blockResistance", Collections::emptyList, Predicates.alwaysTrue());
     }
 
     public static void refresh() {
         cactusGrowAge = cactusGrowAgeVal.get();
         nerfSeaPickle = nerfSeaPickleVal.get();
+        peacefulNetherStar = peacefulNetherStarVal.get();
         NO_AI_ENTITIES.clear();
         try {
             for (String s : noAIEntitiesVal.get()) {

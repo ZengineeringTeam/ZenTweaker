@@ -5,7 +5,8 @@
   "refmap": "mixins.zentweaker.refmap.json",
   "mixins": [
     "MixinCactusBlock",
-    "MixinSeaPickleBlock"
+    "MixinSeaPickleBlock",
+    "MixinWitherSkeletonSkullBlock"
   ],
   "injectors": {
     "defaultRequire": 1

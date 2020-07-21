@@ -3,12 +3,13 @@ package snownee.zentweaker.mixin;
 import java.util.Random;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
-import net.minecraft.block.IGrowable;
 import net.minecraft.block.SeaPickleBlock;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -18,16 +19,16 @@ import net.minecraft.world.server.ServerWorld;
 import snownee.zentweaker.ZenTweakerCommonConfig;
 
 @Mixin(SeaPickleBlock.class)
-public abstract class MixinSeaPickleBlock extends BushBlock implements IGrowable {
+public abstract class MixinSeaPickleBlock extends BushBlock {
     private static final IntegerProperty PICKLES = BlockStateProperties.PICKLES_1_4;
 
     public MixinSeaPickleBlock(Properties properties) {
         super(properties);
     }
 
-    @Override
-    @Overwrite
-    public void grow(ServerWorld p_225535_1_, Random p_225535_2_, BlockPos p_225535_3_, BlockState p_225535_4_) {
+    @Inject(at = @At("HEAD"), method = "grow", cancellable = true)
+    public void zentweaker_grow(ServerWorld p_225535_1_, Random p_225535_2_, BlockPos p_225535_3_, BlockState p_225535_4_, CallbackInfo info) {
+        info.cancel();
         if (!this.isInBadEnvironment(p_225535_4_) && p_225535_1_.getBlockState(p_225535_3_.down()).isIn(BlockTags.CORAL_BLOCKS)) {
             int j = 1;
             int l = 0;
