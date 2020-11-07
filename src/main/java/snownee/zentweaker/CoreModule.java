@@ -8,8 +8,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 import snownee.kiwi.AbstractModule;
 import snownee.kiwi.KiwiModule;
@@ -23,10 +25,10 @@ public class CoreModule extends AbstractModule {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ZenTweakerCommonConfig.spec);
         modEventBus.register(ZenTweakerCommonConfig.class);
-        // if (FMLEnvironment.dist.isClient()) {
-        //     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ModNameClientConfig.spec);
-        //     modEventBus.register(ModNameClientConfig.class);
-        // }
+        if (FMLEnvironment.dist.isClient()) {
+            ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ZenTweakerClientConfig.spec);
+            modEventBus.register(ZenTweakerClientConfig.class);
+        }
     }
 
     @Override
@@ -54,6 +56,11 @@ public class CoreModule extends AbstractModule {
             }
             block.blockResistance = resistance;
         }
+    }
+
+    @Override
+    protected void clientInit(FMLClientSetupEvent event) {
+        ZenTweakerClientConfig.refresh();
     }
 
     @SubscribeEvent

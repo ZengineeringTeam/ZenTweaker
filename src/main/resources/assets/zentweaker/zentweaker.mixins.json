@@ -6,7 +6,8 @@
   "mixins": [
     "MixinCactusBlock",
     "MixinSeaPickleBlock",
-    "MixinWitherSkeletonSkullBlock"
+    "MixinWitherSkeletonSkullBlock",
+    "MixinMainMenuScreen"
   ],
   "injectors": {
     "defaultRequire": 1
