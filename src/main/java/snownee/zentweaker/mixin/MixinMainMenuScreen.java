@@ -22,6 +22,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import snownee.zentweaker.ZenTweaker;
 import snownee.zentweaker.ZenTweakerClientConfig;
 
@@ -54,10 +55,10 @@ public class MixinMainMenuScreen extends Screen {
 
     @Inject(at = @At("HEAD"), method = "addSingleplayerMultiplayerButtons", cancellable = true)
     private void zentweaker_addSingleplayerMultiplayerButtons(int yIn, int rowHeightIn, CallbackInfo info) {
-        this.addButton(new Button(this.width / 2 - 100, yIn, 200, 20, I18n.format("menu.singleplayer"), (p_213089_1_) -> {
+        this.addButton(new Button(this.width / 2 - 100, yIn, 200, 20, new TranslationTextComponent("menu.singleplayer"), (p_213089_1_) -> {
             this.minecraft.displayGuiScreen(new WorldSelectionScreen(this));
         }));
-        this.addButton(new Button(this.width / 2 - 100, yIn + rowHeightIn * 1, 200, 20, I18n.format("menu.multiplayer"), (p_213086_1_) -> {
+        this.addButton(new Button(this.width / 2 - 100, yIn + rowHeightIn * 1, 200, 20, new TranslationTextComponent("menu.multiplayer"), (p_213086_1_) -> {
             if (this.minecraft.gameSettings.field_230152_Z_) {
                 this.minecraft.displayGuiScreen(new MultiplayerScreen(this));
             } else {
@@ -66,11 +67,11 @@ public class MixinMainMenuScreen extends Screen {
         }));
         String title = ZenTweakerClientConfig.realmsBtnTitleVal.get();
         if (Strings.isNullOrEmpty(title)) {
-            this.addButton(new Button(this.width / 2 + 2, yIn + rowHeightIn * 2, 98, 20, I18n.format("menu.online"), (p_213095_1_) -> {
+            this.addButton(new Button(this.width / 2 + 2, yIn + rowHeightIn * 2, 98, 20, new TranslationTextComponent("menu.online"), (p_213095_1_) -> {
                 this.switchToRealms();
             }));
         } else {
-            this.addButton(new Button(this.width / 2 + 2, yIn + rowHeightIn * 2, 98, 20, I18n.format(title), (p_213095_1_) -> {
+            this.addButton(new Button(this.width / 2 + 2, yIn + rowHeightIn * 2, 98, 20, new TranslationTextComponent(title), (p_213095_1_) -> {
                 String uriStr = ZenTweakerClientConfig.realmsBtnURLVal.get();
                 if (Strings.isNullOrEmpty(uriStr)) {
                     return;
@@ -89,5 +90,6 @@ public class MixinMainMenuScreen extends Screen {
     }
 
     @Shadow
-    private void switchToRealms() {}
+    private void switchToRealms() {
+    }
 }

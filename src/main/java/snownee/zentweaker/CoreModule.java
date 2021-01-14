@@ -54,7 +54,7 @@ public class CoreModule extends AbstractModule {
             } catch (Exception e) {
                 continue;
             }
-            block.blockResistance = resistance;
+            block.blastResistance = resistance;
         }
     }
 

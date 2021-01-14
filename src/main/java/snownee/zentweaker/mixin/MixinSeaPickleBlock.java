@@ -29,7 +29,7 @@ public abstract class MixinSeaPickleBlock extends BushBlock {
     @Inject(at = @At("HEAD"), method = "grow", cancellable = true)
     public void zentweaker_grow(ServerWorld p_225535_1_, Random p_225535_2_, BlockPos p_225535_3_, BlockState p_225535_4_, CallbackInfo info) {
         info.cancel();
-        if (!this.isInBadEnvironment(p_225535_4_) && p_225535_1_.getBlockState(p_225535_3_.down()).isIn(BlockTags.CORAL_BLOCKS)) {
+        if (!SeaPickleBlock.isInBadEnvironment(p_225535_4_) && p_225535_1_.getBlockState(p_225535_3_.down()).isIn(BlockTags.CORAL_BLOCKS)) {
             int j = 1;
             int l = 0;
             int i1 = p_225535_3_.getX() - 2;
@@ -69,10 +69,6 @@ public abstract class MixinSeaPickleBlock extends BushBlock {
                 p_225535_1_.setBlockState(p_225535_3_, p_225535_4_.with(PICKLES, Integer.valueOf(4)), 2);
             }
         }
-    }
-
-    private boolean isInBadEnvironment(BlockState p_204901_1_) {
-        return !p_204901_1_.get(BlockStateProperties.WATERLOGGED);
     }
 
 }

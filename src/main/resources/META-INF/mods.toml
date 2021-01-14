@@ -1,16 +1,18 @@
 modLoader="javafml"
-loaderVersion="[31,)"
+loaderVersion="[34,)"
+license="MIT"
+
 [[mods]]
 modId="zentweaker"
 version="${file.jarVersion}"
 displayName="ZenTweaker"
 authors="Snownee"
-displayURL="https://minecraft.curseforge.com/projects/zentweaker"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/zentweaker"
 description=""
 
 [[dependencies.zentweaker]]
     modId="kiwi"
     mandatory=true
-    versionRange="[2.7, 2.11)"
+    versionRange="[3.4.1, 4)"
     ordering="BEFORE"
     side="BOTH"

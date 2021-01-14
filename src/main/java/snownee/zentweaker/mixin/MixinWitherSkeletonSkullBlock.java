@@ -88,7 +88,7 @@ public class MixinWitherSkeletonSkullBlock {
 
                     for (int k = 0; k < blockpattern.getPalmLength(); ++k) {
                         for (int l = 0; l < blockpattern.getThumbLength(); ++l) {
-                            worldIn.notifyNeighbors(blockpattern$patternhelper.translateOffset(k, l, 0).getPos(), Blocks.AIR);
+                            worldIn.func_230547_a_(blockpattern$patternhelper.translateOffset(k, l, 0).getPos(), Blocks.AIR);
                         }
                     }
 
