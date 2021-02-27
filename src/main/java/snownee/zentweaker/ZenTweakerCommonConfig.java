@@ -32,6 +32,8 @@ public final class ZenTweakerCommonConfig {
     private static BooleanValue peacefulNetherStarVal;
     private static ConfigValue<List<? extends String>> noAIEntitiesVal;
     public static ConfigValue<List<? extends String>> blockResistanceVal;
+    public static ConfigValue<List<? extends String>> itemContainerVal;
+    public static ConfigValue<List<? extends String>> respawnCommandsVal;
 
     static {
         spec = new ForgeConfigSpec.Builder().configure(ZenTweakerCommonConfig::new).getRight();
@@ -43,6 +45,8 @@ public final class ZenTweakerCommonConfig {
         peacefulNetherStarVal = builder.define("peacefulNetherStar", peacefulNetherStar);
         noAIEntitiesVal = builder.defineList("noAIEntities", Collections::emptyList, Predicates.alwaysTrue());
         blockResistanceVal = builder.defineList("blockResistance", Collections::emptyList, Predicates.alwaysTrue());
+        itemContainerVal = builder.defineList("itemContainer", Collections::emptyList, Predicates.alwaysTrue());
+        respawnCommandsVal = builder.defineList("respawnCommands", Collections::emptyList, Predicates.alwaysTrue());
     }
 
     public static void refresh() {
